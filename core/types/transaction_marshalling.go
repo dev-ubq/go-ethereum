@@ -278,9 +278,10 @@ func (t *Transaction) UnmarshalJSON(input []byte) error {
 		var itx L1MessageTx
 		inner = &itx
 		if dec.QueueIndex == nil {
-			return errors.New("missing required field 'queueIndex' in transaction")
+			itx.QueueIndex = 0
+		}else{
+			itx.QueueIndex = uint64(*dec.QueueIndex)
 		}
-		itx.QueueIndex = uint64(*dec.QueueIndex)
 		if dec.Gas == nil {
 			return errors.New("missing required field 'gas' in transaction")
 		}
